@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "plotly"]
+build-backend = "setuptools.build_meta"
+
+[metadata]
+name = "scvm"
+version = "0.1.0"
+
+[tool.setuptools.packages]
+find = {}  # Scan the project directory with the default parameters
+
+[project]
+name = "scvm"
+version = "0.1.0"
+authors = [
+  { name="Vijaya Baskar", email="vjbaskar@gmail.com" },
+]
+description = "scanpy related supplementary analysis tools"
+readme = "README.md"
+requires-python = ">=3.7"
