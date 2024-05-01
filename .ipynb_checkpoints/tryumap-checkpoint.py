@@ -48,13 +48,18 @@ def tryumap(adata, reqCols = ['total_counts'], regress_vars = ['S_score','G2M_sc
     if regress == 1:
         print("Regressing")
         sc.pp.regress_out(data, keys = regress_vars, n_jobs= n_jobs)
-    try:
-        print("HVG")
-        print(data.var['highly_variable'].value_counts())
-    except:
-        print("Running sc.pp.highly_variable: highly_variable not found")
-        sc.pp.highly_variable_genes(data) ; print("HVG")
-        print(data.var['highly_variable'].value_counts())
+    
+    if use_highly_variable == True:
+        try:
+            print("HVG")
+            print(data.var['highly_variable'].value_counts())
+        except:
+            print("Running sc.pp.highly_variable: highly_variable not found")
+            sc.pp.highly_variable_genes(data) ; print("HVG")
+            print(data.var['highly_variable'].value_counts())
+    else:
+        print("You have chosen to not run for highly variable")
+        print("The PCA will be generated for vars, ", data.shape[1])
         
     if scale is True:
         data.raw = data

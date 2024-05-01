@@ -20,7 +20,6 @@ class Gsea:
     
     Example:
     gsea = cf.Gsea(adata)
-    gsea.run_gsea()
     adata = gsea.get_results()
     gsea.get_results(group='14', pcutoff=0.05)
     
@@ -92,6 +91,6 @@ class Gsea:
             x = temp.uns['gsea'][group]
             x = x[x['Adjusted P-value'] <= pcutoff]
             return x
+        
 
-
-
+    

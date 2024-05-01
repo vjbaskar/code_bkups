@@ -37,7 +37,7 @@ def splitplot(adata, split_by, colour_by, size=60, frameon=False, legend_loc=Non
         tmp.obs.loc[ ~ tmp.obs[split_by].isin([clust]), clust] = None
         tmp.obs[clust] = tmp.obs[clust].astype("category")
         tmp.uns[clust+'_colors'] = ['#d3d3d3', adata.uns[split_by+'_colors'][i]]
-        
+    print(tmp.obs.head())
     sc.pl.umap(tmp, groups=tmp.obs[clust].cat.categories[1:].values, color=tmp.obs[split_by].cat.categories.tolist(), size=size, frameon=frameon, legend_loc=legend_loc, **kwargs)
         
     return tmp
@@ -67,20 +67,17 @@ def splitplot(adata, split_by = 'condition', colour_by = 'celltype', **kwargs):
     #split_by = 'condition'
     #colour_by = 'celltype'
     split_vals = data.obs[split_by].unique()
+    #print(split_vals)
     for split in split_vals:
-
         #split = 'LK'
-        print("", end = "")
-
+        #print(f"***{split}", end = "")
         data.obs[split] = data.obs[colour_by]
-
-        data.obs[split].value_counts()
-
         data.obs.loc[~data.obs[split_by].isin([split]), split] = None
 
         data.obs[split] = data.obs[split].astype('category')
-
-
+    
         data.uns[split+'_colors'] = ['#d3d3d3']  + data.uns[colour_by +'_colors']
         data.uns[split+'_colors'] = data.uns[colour_by +'_colors']
+        
+    #print(data.obs.head())
     sc.pl.umap(data,color=split_vals, **kwargs)

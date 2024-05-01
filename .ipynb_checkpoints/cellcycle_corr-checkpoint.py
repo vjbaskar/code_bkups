@@ -1,7 +1,7 @@
 from .globimport import *
 import time
 
-def cellcycle_corr(data, cell_cycle_genes, sim_cutoff = 0.2):
+def cellcycle_corr(data, cell_cycle_genes = None, sim_cutoff = 0.2):
     
     """
     Finds genes highly correlated with cell cycle genes.
@@ -10,11 +10,16 @@ def cellcycle_corr(data, cell_cycle_genes, sim_cutoff = 0.2):
     cell_cycle_genes: list of cell cycle genes(1)
     sim_cutoff: Similarity cutoff
     
-    returns: list of genes with cell cycle genes removed.
-    
+    returns: list(list) gene_correlation = matrix
+                        genes_to_retain = genes to retain
     (1) cell_cycle_genes = [x.strip().capitalize() for x in open('public_data/regev_lab_cell_cycle_genes.txt')]
+        For human. no need to capitalize()
     
     """
+    #print(cell_cycle_genes)
+    if cell_cycle_genes == None:
+        print("No cell cycle gene")
+        return [0,0]
     start = time.time()
     temp = sc.pp.scale(data, max_value=10, copy=True)
     gene_correlation = np.corrcoef(temp.X.transpose())

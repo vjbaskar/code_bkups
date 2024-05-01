@@ -41,7 +41,7 @@ def describe(data):
     print("-----")
     print("Obs: ", data.obs.columns.tolist())
     print("Var: ", data.var.columns.tolist())
-    
+
 def describe(data):
     """
     Descibes the X of anndata. Useful for checking if X is normalised, raw etc
@@ -78,3 +78,5 @@ def describe(data):
     print("cellmean =  ", cellmean, end = "\n")
     print("-----")
     print(data)
+
+anndata.AnnData.describe = describe
